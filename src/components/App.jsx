@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import getImages from './Pixabayservise/Pixabayservise';
+import { getImages } from './Pixabayservise/Pixabayservise';
 import { Searchbar } from './Searchbar/Searchbar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 /* import { Modal } from 'components/Modal/Modal'; */
@@ -17,8 +17,8 @@ export class App extends Component {
 
     if (query !== prevState.query || page !== prevState.page) {
       this.setState({ isLoading: true, isSearchDisabled: true });
-      getImages
-        .getImages(query, page)
+
+      getImages(query, page)
         .then(({ photos, total_images }) => {
           if (!photos.length) {
             this.setState({
@@ -27,7 +27,6 @@ export class App extends Component {
             });
             return;
           }
-
           this.setState(prevState => ({
             images: [...prevState.images, ...photos],
             isLoadMore: page < Math.ceil(total_images / 12),
@@ -47,7 +46,7 @@ export class App extends Component {
       return;
     }
 
-    this.setState({ q: query, images: [], page: 1 });
+    this.setState({ query, images: [], page: 1 });
   };
 
   openModal = url => {
