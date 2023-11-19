@@ -47,7 +47,7 @@ export class App extends Component {
       return;
     }
 
-    this.setState({ q: query, images: [], page: 1, isEmpty: false });
+    this.setState({ q: query, images: [], page: 1 });
   };
 
   openModal = url => {
