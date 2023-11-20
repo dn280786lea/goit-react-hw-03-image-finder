@@ -55,7 +55,6 @@ export class App extends Component {
   };
 
   openModal = url => {
-    console.log('Opening modal with URL:', url);
     this.setState({ url });
   };
   loadMore = () => {

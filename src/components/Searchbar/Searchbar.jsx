@@ -4,10 +4,11 @@ import './Searchbar.css';
 export class Searchbar extends Component {
   state = {
     q: '',
+    error: '',
   };
 
   handleChange = evt => {
-    this.setState({ q: evt.target.value });
+    this.setState({ q: evt.target.value, error: '' });
   };
 
   handleSubmit = evt => {
