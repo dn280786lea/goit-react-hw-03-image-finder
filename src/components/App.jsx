@@ -59,7 +59,7 @@ export class App extends Component {
     this.setState({ url });
   };
   loadMore = () => {
-    this.setState(prevState => ({ page: (prevState.page += 1) }));
+    this.setState(prevState => ({ page: prevState.page + 1 }));
   };
 
   render() {

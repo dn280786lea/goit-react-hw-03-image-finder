@@ -1,25 +1,31 @@
 import { Component } from 'react';
+import './Modal.css';
 
 export class Modal extends Component {
   handleKeyDown = event => {
     if (event.code === 'Escape') {
-      this.props.closeModal('');
+      this.props.closeModal();
     }
   };
+
   componentDidMount() {
     window.addEventListener('keydown', this.handleKeyDown);
   }
+
   componentWillUnmount() {
     window.removeEventListener('keydown', this.handleKeyDown);
   }
-  handleClick = e => {
-    e.target === e.currentTarget && this.props.onClose();
+
+  handleClick = event => {
+    if (event.target === event.currentTarget) {
+      this.props.closeModal();
+    }
   };
 
   render() {
     return (
-      <div onClick={this.handleClick}>
-        <img src={this.props.url} alt="modal_img" />
+      <div className="Modal" onClick={this.handleClick}>
+        <img className="modalImage" src={this.props.url} alt="modal_img" />
       </div>
     );
   }
