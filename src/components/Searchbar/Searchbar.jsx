@@ -13,10 +13,20 @@ export class Searchbar extends Component {
 
   handleSubmit = evt => {
     evt.preventDefault();
-    this.props.onSubmit(this.state.q);
+
+    const { q } = this.state;
+
+    if (q.trim() === '') {
+      this.setState({ error: 'Please, enter query' });
+      return;
+    }
+
+    this.props.onSubmit(q);
   };
 
   render() {
+    const { error } = this.state;
+
     return (
       <header className="searchbar">
         <form className="form" onSubmit={this.handleSubmit}>
@@ -37,6 +47,7 @@ export class Searchbar extends Component {
             defaultValue={this.state.q}
           />
         </form>
+        {error && <h3 className="error">{error}</h3>}
       </header>
     );
   }
