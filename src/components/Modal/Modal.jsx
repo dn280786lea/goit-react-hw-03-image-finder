@@ -1,4 +1,4 @@
-/* import { Component } from 'react';
+import { Component } from 'react';
 
 export class Modal extends Component {
   handleKeyDown = event => {
@@ -12,17 +12,15 @@ export class Modal extends Component {
   componentWillUnmount() {
     window.removeEventListener('keydown', this.handleKeyDown);
   }
-  handleClick = event => {
-    if (event.target === event.currentTarget) {
-      this.props.closeModal('');
-    }
+  handleClick = e => {
+    e.target === e.currentTarget && this.props.onClose();
   };
+
   render() {
     return (
       <div onClick={this.handleClick}>
-        <img src={this.props.url} alt="modalimg" />
+        <img src={this.props.url} alt="modal_img" />
       </div>
     );
   }
 }
- */

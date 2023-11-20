@@ -1,9 +1,16 @@
 import React from 'react';
+import {} from './ImageGalleryItem.css';
 
-export const ImageGalleryItem = ({ image, onClick }) => {
+export const ImageGalleryItem = ({ image, onClick, openModal }) => {
   return (
-    <li onClick={onClick}>
-      <img src={image.url} alt={image.tags} id={image.id} />
+    <li className="ImageGalleryItem" onClick={onClick}>
+      <img
+        className="image"
+        src={image.webformatURL}
+        alt={image.tags}
+        id={image.id}
+        onClick={openModal}
+      />
     </li>
   );
 };

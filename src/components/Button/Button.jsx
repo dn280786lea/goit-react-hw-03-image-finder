@@ -1,7 +1,12 @@
 import React from 'react';
+import {} from './Button.css';
 
 const Button = ({ onClick, children }) => {
-  return <button onClick={onClick}>{children}</button>;
+  return (
+    <button className="loadmore" onClick={onClick}>
+      {children}
+    </button>
+  );
 };
 
 export default Button;

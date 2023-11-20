@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { getImages } from './Pixabayservise/Pixabayservise';
 import { Searchbar } from './Searchbar/Searchbar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
-/* import { Modal } from 'components/Modal/Modal'; */
+import { Modal } from 'components/Modal/Modal';
+import { Loader } from 'components/Loader/Loader';
+import Button from './Button/Button';
 
 export class App extends Component {
   state = {
@@ -10,6 +12,10 @@ export class App extends Component {
     query: '',
     page: 1,
     totalImages: 0,
+    isLoadMore: false,
+    isLoading: false,
+    url: '',
+    error: '',
   };
 
   componentDidUpdate(_, prevState) {
@@ -17,9 +23,8 @@ export class App extends Component {
 
     if (query !== prevState.query || page !== prevState.page) {
       this.setState({ isLoading: true, isSearchDisabled: true });
-
       getImages(query, page)
-        .then(({ photos, total_images }) => {
+        .then(({ hits: photos, totalHits: total_images }) => {
           if (!photos.length) {
             this.setState({
               error:
@@ -50,17 +55,23 @@ export class App extends Component {
   };
 
   openModal = url => {
+    console.log('Opening modal with URL:', url);
     this.setState({ url });
+  };
+  loadMore = () => {
+    this.setState(prevState => ({ page: (prevState.page += 1) }));
   };
 
   render() {
-    const { images } = this.state;
+    const { images, isLoadMore, isLoading, url } = this.state;
 
     return (
       <>
+        {isLoading && <Loader />}
         <Searchbar onSubmit={this.handleSubmit} />
         <ImageGallery images={images} openModal={this.openModal} />
-        {/*   {url && <Modal closeModal={this.openModal} url={url} />} */}
+        {isLoadMore && <Button onClick={this.loadMore}>Load more</Button>}
+        {url && <Modal closeModal={this.openModal} url={url} />}
       </>
     );
   }
